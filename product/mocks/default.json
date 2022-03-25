@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "title": "arroz",
+    "category": "Almacén",
+    "description": "Producto de almacén",
+    "image": "https://s1.eestatic.com/2020/05/29/ciencia/nutricion/arroz-seguridad_alimentaria-enfermedades_493711911_152762637_1706x960.jpg",
+    "price": 50
+  },
+  {
+    "id": "2",
+    "title": "fideos",
+    "category": "Almacén",
+    "description": "Producto de almacén",
+    "image": "https://imagenes.20minutos.es/files/article_amp/uploads/imagenes/2021/09/13/fideos.jpeg",
+    "price": 80
+  },
+  {
+    "id": "3",
+    "title": "salsa",
+    "category": "Almacén",
+    "description": "Producto de almacén",
+    "image": "https://s1.eestatic.com/2018/02/10/cocinillas/cocinillas_283989615_116485098_1024x576.jpg",
+    "price": 60
+  },
+  {
+    "id": "4",
+    "title": "harina",
+    "category": "Almacén",
+    "description": "Producto de almacén",
+    "image": "https://dam.cocinafacil.com.mx/wp-content/uploads/2021/09/harinas-refinadas.jpg",
+    "price": 40
+  },
+  {
+    "id": "5",
+    "title": "Agua",
+    "category": "Bebidas",
+    "description": "Agua mineral 500ml",
+    "image": "https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/temas/agua.jpg",
+    "price": 35
+  },
+  {
+    "id": "6",
+    "title": "Cerveza",
+    "category": "Bebidas",
+    "description": "IPA",
+    "image": "https://www.cocinayvino.com/wp-content/uploads/2021/07/www.cocinayvino.com-cervezas-e1626313339477-1200x900.jpg",
+    "price": 80
+  }
+]
