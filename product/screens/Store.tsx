@@ -51,6 +51,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               leftIcon={<Image alt="whatsapp" src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />}
               size="lg"
               width={{base: "100%", sm:"fit-content"}}
+              data-testid="show-cart"
             >
               Ver pedido ({cart.reduce((acc, item) => acc + item.quantity, 0)} productos)
             </Button>

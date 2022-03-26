@@ -52,7 +52,7 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onIncrement, onDecrement, 
         <DrawerCloseButton />
         <DrawerHeader>Tu pedido</DrawerHeader>
 
-        <DrawerBody>
+        <DrawerBody data-testid="cart">
           {Boolean(items.length) ? <Stack spacing={4} divider={<Divider />}>
             {items.map((product) => (
               <Stack key={product.id} data-testid="cart-item" direction="row">
@@ -94,6 +94,7 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onIncrement, onDecrement, 
               src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />}
             size="lg"
             width="100%"
+            data-testid="complete-order"
           >
             Completar pedido ({total})
           </Button>
