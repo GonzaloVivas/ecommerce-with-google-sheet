@@ -1,11 +1,11 @@
 import * as React from "react"
-import { Product } from '../types'
-import { Box, Button, Grid, Link, Stack, Text, Image, Flex } from '@chakra-ui/react'
-import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion'
-import { parseCurrency } from '../../utils/currency'
+import { CartItem, Product } from '../types'
+import { Box, Button, Grid, Stack, Text, Image } from '@chakra-ui/react'
+
 import ProductCard from "../components/ProductCard"
 
-
+import CartDrawer from '../components/CartDrawer';
+import { editCart } from '../selectors';
 
 interface Props {
   products: Product[]
@@ -13,21 +13,16 @@ interface Props {
 
 const StoreScreen: React.FC<Props> = ({ products }) => {
 
-  const [cart, setCart] = React.useState<Product[]>([])
+  const [cart, setCart] = React.useState<CartItem[]>([])
   const [selectedImage, setSelectedImage] = React.useState<string>(null)
+  const [isCartOpen, toggleCart] = React.useState<boolean>(false)
 
-  const text = React.useMemo(
-    () =>
-      cart
-        .reduce((message, product) => message.concat(`* ${product.title} - ${parseCurrency(product.price)}\n`),
-          ``
-        )
-        .concat(`\nTotal: ${parseCurrency(cart.reduce((total, product) => total + product.price, 0))}`),
-    [cart]
-  )
+  function handleEditCart(product: Product, action: 'increment' | 'decrement') {
+    setCart(editCart(product, action))
+  }
 
   return (
-    <AnimateSharedLayout type="crossfade">
+    <>
       <Stack spacing={6}>
 
         {Boolean(products.length) ? 
@@ -37,60 +32,41 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               <ProductCard
                 key={product.id}
                 product={product} 
-                onAdd={(product) => setCart((cart) => cart.concat(product))}
+                onAdd={(product) => handleEditCart(product, 'increment')}
               />
             ))}
           </Grid>
 
         : <Text color="gray.500" fontSize="lg" margin="auto">No hay productos</Text>}
 
-        <AnimatePresence>
-          {Boolean(cart.length) && (
-            <Box
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0 }}
-              as={motion.div}
-              position="sticky"
-              bottom={4}
-              textAlign="center"
+        {Boolean(cart.length) && (
+          <Box
+            position="sticky"
+            bottom={4}
+            textAlign="center"
+          >
+            <Button
+              onClick={() => toggleCart(true)}
+              colorScheme="whatsapp"
+              leftIcon={<Image alt="whatsapp" src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />}
+              size="lg"
+              width={{base: "100%", sm:"fit-content"}}
             >
-              <Button
-                as={Link}
-                href={`https://wa.me/5491145235632?text=${encodeURIComponent(text)}`}
-                isExternal
-                colorScheme="whatsapp"
-                leftIcon={<Image alt="whatsapp" src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />}
-                size="lg"
-              >
-                Completar pedido ({cart.length} productos)
-              </Button>
-            </Box>
-          )}
-        </AnimatePresence>
+              Ver pedido ({cart.reduce((acc, item) => acc + item.quantity, 0)} productos)
+            </Button>
+          </Box>
+        )}
 
       </Stack>
-      <AnimatePresence>
-        {selectedImage && (
-          <Flex
-            key="backdrop"
-            alignItems="center"
-            as={motion.div}
-            backgroundColor="rgba(0,0,0,0.5)"
-            justifyContent="center"
-            layoutId={selectedImage}
-            position="fixed"
-            top={0}
-            left={0}
-            height="100%"
-            width="100%"
-            onClick={() => setSelectedImage(null)}
-          >
-            <Image key="image" src={selectedImage} alt="Image" />
-          </Flex>
-        )}
-      </AnimatePresence>
-    </AnimateSharedLayout>
+
+      <CartDrawer
+        items={cart}
+        isOpen={isCartOpen}
+        onClose={() => toggleCart(false)} 
+        onIncrement={(product) => handleEditCart(product, 'increment')}
+        onDecrement={(product) => handleEditCart(product, 'decrement')}
+      />
+    </>
   )
 }
 

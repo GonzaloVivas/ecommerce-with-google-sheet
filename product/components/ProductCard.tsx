@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Product } from '../types';
 import { Button, Image, Stack, Text } from '@chakra-ui/react';
-import { motion } from 'framer-motion'
 
 import { parseCurrency } from '../../utils/currency'
 
@@ -18,23 +17,29 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
       borderRadius="md"
       padding={4}
       key={product.id}
-      backgroundColor="gray.100"
+      backgroundColor="white"
+      boxShadow="md"
       spacing={3}
+      borderWidth={1}
+      borderColor="gray.100"
     >
-      <Stack spacing={1}>
+      <Stack direction="row">
         <Image
+          loading="lazy"
           src={product.image}
           alt={product.title}
-          as={motion.img}
           cursor="pointer"
-          layoutId={product.image}
           maxHeight={128}
-          objectFit="cover"
+          objectFit="contain"
+          backgroundColor="white"
           borderRadius="md"
-          // onClick={() => setSelectedImage(product.image)}
+          width={16}
+          height={16}
         />
-        <Text>{product.title}</Text>
-        <Text fontSize="sm" fontWeight="500" color="green.500">{parseCurrency(product.price)}</Text>
+        <Stack spacing={1}>
+          <Text fontSize="lg">{product.title}</Text>
+          <Text fontSize="md" fontWeight="500" color="green.500">{parseCurrency(product.price)}</Text>
+        </Stack>
       </Stack>
       <Button
         colorScheme="primary"
