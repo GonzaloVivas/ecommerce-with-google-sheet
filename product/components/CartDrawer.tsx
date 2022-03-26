@@ -55,7 +55,7 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onIncrement, onDecrement, 
         <DrawerBody>
           {Boolean(items.length) ? <Stack spacing={4} divider={<Divider />}>
             {items.map((product) => (
-              <Stack direction="row" key={product.id}>
+              <Stack key={product.id} data-testid="cart-item" direction="row">
                 <Stack width="100%">
                   <Stack direction="row" justifyContent="space-between">
                     <Text fontWeight="500">{product.title} {product.quantity > 1 ? `(x${product.quantity})` : ''}</Text>
@@ -65,6 +65,7 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onIncrement, onDecrement, 
                     <Button
                       size="xs"
                       onClick={() => onDecrement(product)}
+                      data-testid="decrement"
                     >
                       -
                     </Button>
@@ -72,6 +73,7 @@ const CartDrawer: React.FC<Props> = ({items, onClose, onIncrement, onDecrement, 
                     <Button
                       size="xs"
                       onClick={() => onIncrement(product)}
+                      data-testid="increment"
                     >
                       +
                     </Button>

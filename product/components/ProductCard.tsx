@@ -13,7 +13,7 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
   
   return (
     <Stack
-      data-test-id="product"
+      data-testid="product"
       borderRadius="md"
       padding={4}
       key={product.id}
