@@ -24,21 +24,33 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             paddingTop={0}
           >
             <Stack spacing={8}>
-              <Stack marginBottom={4} spacing={0}>
+              <Stack marginBottom={4} spacing={4}>
                 <Image
                   src={INFORMATION.banner} alt="Banner"
                   borderRadius="lg"
                   height="100%"
                   maxHeight={64}
                 ></Image>
-                <Stack direction={{base: "column", sm: "row"}} alignItems="center" spacing={{base:3, sm: 6}}>
-                  <Box marginTop={-10} marginLeft={2} borderRadius={9999} padding={1} backgroundColor="white" minWidth={{base: 24, sm: 32}}>
+                <Stack
+                  direction={{base: "column", sm: "row"}}
+                  alignItems="center"
+                  spacing={{base:3, sm: 6}}
+                >
+                  <Box
+                    marginTop={{base: -12, sm: -16}}
+                    marginLeft={2}
+                    borderRadius={9999}
+                    padding={1}
+                    backgroundColor="white"
+                    minWidth={{base: 24, sm: 32}}
+                  >
                     <Image
                       borderRadius={999}
                       width={{base: 24, sm: 32}}
                       height={{base: 24, sm: 32}}
-                      src={INFORMATION.avatar} alt="Logo"
-                    ></Image>
+                      src={INFORMATION.avatar}
+                      alt={INFORMATION.title}
+                    />
                   </Box>
                   <Stack spacing={3} alignItems={{ base: "center", sm: "flex-start" }} textAlign={{base: "center", sm: "left"}}>
                     <Heading>{INFORMATION.title}</Heading>
