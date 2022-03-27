@@ -24,8 +24,20 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
       borderWidth={1}
       borderColor="gray.100"
     >
-      <Stack direction="row" padding={4} width="100%">
-        <Stack spacing={1} width="100%" justifyContent="space-between">
+      <Stack direction="row" width="100%">
+        <Image
+          loading="lazy"
+          src={product.image}
+          alt={product.title}
+          maxHeight={128}
+          objectFit="cover"
+          backgroundColor="white"
+          borderRadius="md"
+          width={{base: 24, sm: 36}}
+          height={36}
+          minWidth={36}
+        />
+        <Stack padding={4} spacing={1} width="100%" justifyContent="space-between">
           <Stack spacing={1}>
             <Text fontSize="lg" fontWeight="500">{product.title}</Text>
             <Text fontSize="sm" color="gray.500">{product.description}</Text>
@@ -33,7 +45,7 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
           <Stack alignItems="flex-end" direction="row" justifyContent="space-between">
             <Text fontSize="md" fontWeight="500" color="green.500">{parseCurrency(product.price)}</Text>
             <Button
-              size="sm"
+              size="xs"
               onClick={() => onAdd(product)}
             >
               Agregar
@@ -41,19 +53,6 @@ const ProductCard: React.FC<Props> = ({product, onAdd}) => {
           </Stack>
         </Stack>
       </Stack>
-      <Image
-        loading="lazy"
-        src={product.image}
-        alt={product.title}
-        cursor="pointer"
-        maxHeight={128}
-        objectFit="contain"
-        backgroundColor="white"
-        borderRadius="md"
-        width={36}
-        height={36}
-        minWidth={36}
-      />
     </Stack>
   )
 }
