@@ -6,6 +6,7 @@ import ProductCard from "../components/ProductCard"
 
 import CartDrawer from '../components/CartDrawer';
 import { editCart } from '../selectors';
+import { parseCurrency } from "../../utils/currency";
 
 interface Props {
   products: Product[]
@@ -14,8 +15,14 @@ interface Props {
 const StoreScreen: React.FC<Props> = ({ products }) => {
 
   const [cart, setCart] = React.useState<CartItem[]>([])
-  const [selectedImage, setSelectedImage] = React.useState<string>(null)
   const [isCartOpen, toggleCart] = React.useState<boolean>(false)
+
+  const total = React.useMemo(
+    () => parseCurrency(cart.reduce((total, product) => total + (product.price * product.quantity), 0)),
+    [cart]
+  )
+
+  const quantity = React.useMemo(() => cart.reduce((acc, item) => acc + item.quantity, 0), [cart]);
 
   function handleEditCart(product: Product, action: 'increment' | 'decrement') {
     setCart(editCart(product, action))
@@ -27,7 +34,13 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
 
         {Boolean(products.length) ? 
         
-          <Grid gridGap={6} templateColumns="repeat(auto-fill, minmax(240px, 1fr))">
+          <Grid
+            gridGap={8}
+            templateColumns={{ 
+              base: "repeat(auto - fill, minmax(240px, 1fr))",
+              sm: "repeat(auto-fill, minmax(360px, 1fr))" 
+            }}
+          >
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -47,13 +60,30 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
           >
             <Button
               onClick={() => toggleCart(true)}
-              colorScheme="whatsapp"
-              leftIcon={<Image alt="whatsapp" src="https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff" />}
+              colorScheme="primary"
               size="lg"
               width={{base: "100%", sm:"fit-content"}}
               data-testid="show-cart"
+              boxShadow="2xl"
             >
-              Ver pedido ({cart.reduce((acc, item) => acc + item.quantity, 0)} productos)
+              <Stack direction="row" spacing={6} alignItems="center">
+                <Stack direction="row" spacing={3} alignItems="center">
+                  <Text>Ver pedido</Text>
+                  <Text
+                    backgroundColor="rgba(0,0,0,0.25)"
+                    padding={1}
+                    fontSize="xs"
+                    borderRadius="xs"
+                    paddingX={2}
+                    paddingY={1}
+                    fontWeight="400"
+                    color="gray.100"
+                  >
+                    {quantity} productos
+                  </Text>
+                </Stack>
+                <Text>{total}</Text>
+              </Stack>
             </Button>
           </Box>
         )}

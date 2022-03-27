@@ -1,12 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios'
 import Papa from 'papaparse'
+import { INFORMATION } from '../app/constants'
 
 import { Product } from "./types"
 
 export default {
   list: async (): Promise<Product[]> => {
-    return axios.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vTRZ9cZQr375dvLe6wIOneckMhIZoehfSu8JSjRN6lLa2VHec7Lk8PEAyMOH_t3MNG3bqQieU99K33x/pub?output=csv',
+    return axios.get(INFORMATION.sheet,
       {responseType: 'blob'}
     ).then( res => {
       return new Promise<Product[]>((resolve, reject) => {
